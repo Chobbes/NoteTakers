@@ -22,3 +22,98 @@
   create the daily sub-directories automatically from a template, and
   some additional functionality may also be added - perhaps searching
   for things within all of the notes.
+
+* Usage
+  First and foremost is the behavior of simply running:
+
+  #+BEGIN_EXAMPLE
+    $ make
+  #+END_EXAMPLE
+
+  Doing this will cause all of the individual .pdf files to be
+  generated, as well as the large .pdf file, and nothing more.
+
+  You may also produce only the individual .pdf files by running the
+  command
+
+  #+BEGIN_EXAMPLE
+    $ make individuals
+  #+END_EXAMPLE
+
+** TODO Viewing
+   Sometimes it is useful to be able to launch a .pdf reader with the
+   main .pdf file easily. You can do this with
+
+  #+BEGIN_EXAMPLE
+    $ make view
+  #+END_EXAMPLE
+
+   One thing to note is that this may not be portable - it's hard to
+   know what PDF viewer you use on everything! So you may want to
+   provide the viewer that you use, for example
+
+  #+BEGIN_EXAMPLE
+    $ make view VIEWER=evince
+  #+END_EXAMPLE
+
+** TODO Building Sub-directories
+   In order to start writing notes for the day we need to be able to
+   create a sub-directory for the current day based off of the
+   template. To do this we simply do the following:
+
+  #+BEGIN_EXAMPLE
+    $ make today
+  #+END_EXAMPLE
+
+   This will create a sub-directory with a name matching the current
+   day in an easy to sort fashion. The format looks something like
+   *classname-yyyy-mm-dd*. By default "classname" will be fetched from
+   the name of the main directory, however this variable may also be
+   modified in the Makefile.
+
+** TODO Updating Sub-Makefiles
+   Sometimes the Makefiles that we have for the sub-directories in the
+   template needs to be updated, because we need to add some features,
+   change some includes, or add some flags to commands. This will
+   replace all of the Makefiles, but will not touch any of the LaTeX
+   files.
+
+   #+BEGIN_EXAMPLE
+     $ make update
+   #+END_EXAMPLE
+
+** TODO Cloning
+   This directory serves as a template for starting a new set of
+   notes. You may create a new directory by issuing the following
+   command in the main directory.
+
+   #+BEGIN_EXAMPLE
+     $ make clone CLONE_DIR=path/to/new/note/directory CLASSNAME=name
+   #+END_EXAMPLE
+
+   Obviously replacing the path to whatever you want it to be. If you
+   do not provide the directory to clone into this should provide a
+   helpful error message. The class name does not need to be provided,
+   in which case the name of the directory will be used.
+
+** TODO Distributions
+   The main Makefile provides the ability to generate 'distributions'
+   as well. These are just compressed archives of all of the
+   individual .pdf files, as well as the main .pdf file. The main
+   advantage of this being that it's easy to share with other people.
+
+   #+BEGIN_EXAMPLE
+     $ make distribution DIST_NAME=<name of archive file>
+   #+END_EXAMPLE
+
+   This will generate a file named 'distribution.tar.bz2' containing
+   everything for just reading the notes by default, if no name was
+   provided. None of the LaTeX is included.
+
+   Some people are unable to deal with a '.tar.bz2' for whatever
+   reason. Thus you may use the following target to generate a '.zip'
+   archive instead.
+
+   #+BEGIN_EXAMPLE
+     $ make distribution-zip DIST_NAME=<name of archive file>
+   #+END_EXAMPLE
