@@ -1,0 +1,24 @@
+#+TITLE: Lued Notes
+#+AUTHOR: Calvin Beck
+#+OPTIONS: ^:{}
+
+* Introduction
+  This is a collection of Makefiles and scripts in order to aid in the
+  creation and management of my LaTeX notes for courses.
+
+  The main idea is to have a sub-directory for each day of classes -
+  each one containing a LaTeX file for the day, and a Makefile which
+  helps build a .pdf for that particular day. This helps if we need to
+  include certain preambles, allows us to clean up some of the mess
+  created by LaTeX more easily, and makes it easier to deal with when
+  using editors such as Emacs which have commands to execute make -
+  this is nice because it allows me to easily preview the final
+  version of the notes.
+
+  In the main parent directory we will also have a Makefile which
+  allows us to build all of the .pdf files for the individual days, as
+  well as mash all of the days up into one big .pdf containing all of
+  the notes for all of the days. This Makefile will also allow us to
+  create the daily sub-directories automatically from a template, and
+  some additional functionality may also be added - perhaps searching
+  for things within all of the notes.
