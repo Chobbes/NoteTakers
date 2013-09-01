@@ -78,8 +78,10 @@ $(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 
 	printf "\n\\\end{document}\n" >> $@
 
+# Generate the directory for the current day.
+today: $(TODAY_NAME)
 
-today:
+$(TODAY_NAME):
 	mkdir $(TODAY_NAME)
 	cp template/Makefile $(TODAY_NAME)/Makefile
 	cp template/template.tex $(TODAY_NAME)/$(TODAY_NAME).tex
