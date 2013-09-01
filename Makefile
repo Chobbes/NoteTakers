@@ -85,5 +85,6 @@ $(TODAY_NAME):
 	mkdir $(TODAY_NAME)
 	cp template/Makefile $(TODAY_NAME)/Makefile
 	cp template/template.tex $(TODAY_NAME)/$(TODAY_NAME).tex
+	sed -i '' 's/MAIN_TEX_FILE/$(MAIN_TEX_FILE)/g' $(TODAY_NAME)/$(TODAY_NAME).tex
 
 .PHONY: clean today
