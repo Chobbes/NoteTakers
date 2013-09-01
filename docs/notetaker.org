@@ -134,3 +134,9 @@
    *VIEWER* variable is set to something that works). This is mostly
    useful when we want a preview while working on something in Emacs,
    or another editor which can call make commands easily.
+
+   One thing that is important to note is that the main .tex file must
+   exist in the parent directory. This can be created using the main
+   Makefile in the parent directory. If this is not there you will not
+   be able to generate the individual PDF files because of how the
+   subfiles LaTeX package works.
