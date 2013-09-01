@@ -39,8 +39,8 @@ LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmod
 # Find all of the LaTeX files in the directory.
 TEX_FILES=$(shell find . -name "*tex" -maxdepth 1 -type f | tr '\n' ' ')
 
-# May also use a preamble file.
-PREAMBLE=../preamble.sty
+# May also use several preamble files.
+PREAMBLES=../preamble.sty
 
 # Names of all of the PDF files that we want to generate.
 PDF_FILES=$(TEX_FILES:.tex=.pdf)
@@ -54,7 +54,7 @@ view: all
 	$(VIEWER) $(PDF_FILES)
 
 # Rule for PDF file generation.
-%.pdf: %.tex $(PREAMBLE)
+%.pdf: %.tex $(PREAMBLES)
 	$(LATEX) $(LATEX_FLAGS) $<
 
 # Run latexmk's clean.
