@@ -71,8 +71,8 @@
    This will create a sub-directory with a name matching the current
    day in an easy to sort fashion. The format looks something like
    *classname-yyyy-mm-dd*. By default "classname" will be fetched from
-   the name of the main directory, however this variable may also be
-   modified in the Makefile.
+   the name of the main directory, however the variable *CLASS_NAME*
+   may also be modified in the Makefile.
 
 ** TODO Updating Sub-Makefiles
    Sometimes the Makefiles that we have for the sub-directories in the
