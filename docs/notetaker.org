@@ -23,6 +23,9 @@
   some additional functionality may also be added - perhaps searching
   for things within all of the notes.
 
+  Note that this relies on some GNU make features currently, so you
+  may have to install gmake.
+
 * Usage
   First and foremost is the behavior of simply running:
 
