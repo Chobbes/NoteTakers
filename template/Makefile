@@ -54,8 +54,12 @@ view: all
 	$(VIEWER) $(PDF_FILES)
 
 # Rule for PDF file generation.
-%.pdf : %.tex $(PREAMBLES)
+%.pdf: %.tex $(PREAMBLES)
 	$(LATEX) $(LATEX_FLAGS) $<
 
+# Run latexmk's clean.
+clean:
+	latexmk -c
+
 # These rules don't generate targets.
-.PHONY: all view
+.PHONY: all view clean
