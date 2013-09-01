@@ -21,6 +21,17 @@
 #  SOFTWARE.
 
 
+# Need to attempt to figure out which PDF viewer to use.
+UNAME=$(shell uname)
+
+ifeq ($(VIEWER), "")
+	ifeq ($(UNAME), Linux)
+		VIEWER="evince"
+	else ifeq($(UNAME), Darwin)
+		VIEWER="open"
+	endif
+endif
+
 # Variables for LaTeX
 LATEX=latexmk  # What we are going to use to build .tex files.
 LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmode'
