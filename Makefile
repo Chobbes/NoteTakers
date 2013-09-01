@@ -47,7 +47,7 @@ CLASS_NAME=$(shell basename $(PWD))
 
 # Name of the main .tex file. This is the file which includes all of
 # the individual days.
-MAIN_TEX_FILE=main.tex
+MAIN_TEX_FILE=$(CLASS_NAME).tex
 
 # Class for the main .tex file.
 DOCUMENT_CLASS=article
