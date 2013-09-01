@@ -21,6 +21,17 @@
 #  SOFTWARE.
 
 
+# Need to attempt to figure out which PDF viewer to use.
+UNAME=$(shell uname)
+
+ifeq ($(VIEWER), "")
+	ifeq ($(UNAME), Linux)
+		VIEWER="evince"
+	else ifeq($(UNAME), Darwin)
+		VIEWER="open"
+	endif
+endif
+
 # Variables for LaTeX
 LATEX=latexmk  # What we are going to use to build .tex files.
 LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmode'
@@ -28,3 +39,23 @@ LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmod
 # Find all of the LaTeX files in the directory.
 TEX_FILES=$(shell find . -name "*tex" -maxdepth 1 -type f | tr '\n' ' ')
 
+# May also use several preamble files.
+PREAMBLES=../preamble.sty
+
+# Names of all of the PDF files that we want to generate.
+PDF_FILES=$(TEX_FILES:.tex=.pdf)
+
+
+# Generate all PDF files for our directory.
+all: $(PDF_FILES)
+
+# Rule to open the PDF files in a viewer.
+view: all
+	$(VIEWER) $(PDF_FILES)
+
+# Rule for PDF file generation.
+%.pdf : %.tex $(PREAMBLES)
+	$(LATEX) $(LATEX_FLAGS) $<
+
+# These rules don't generate targets.
+.PHONY: all view
