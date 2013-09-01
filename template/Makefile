@@ -27,7 +27,7 @@ UNAME=$(shell uname)
 ifeq ($(VIEWER), "")
 	ifeq ($(UNAME), Linux)
 		VIEWER="evince"
-	else ifeq($(UNAME), Darwin)
+	ifeq($(UNAME), Darwin)
 		VIEWER="open"
 	endif
 endif
