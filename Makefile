@@ -72,7 +72,7 @@ $(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 	printf "\\\begin{document}\n" >> $@
 	printf "\\\tableofcontents\n\n" >> $@
 
-	for file in $(STRIPPED_FILES); do \
+	for file in $(TEX_FILES); do \
 		printf "\\\subfile{$$file}\n" | sed s/.tex// >> $@; \
 	done
 
