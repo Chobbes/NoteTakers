@@ -70,6 +70,9 @@ DIST_NAME=distribution
 
 all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
+# Build main PDF and all of the individual ones.
+everything: all individuals
+
 # Rule to generate all of the individual note PDFs.
 individuals:
 	for dir in $(NOTE_DIRECTORIES); do \
@@ -146,9 +149,19 @@ clone:
 	cp Makefile $(CLONE_DIR)
 	sed -i '' 's|CLASS_NAME=$$(shell basename $$(PWD))|CLASS_NAME=$(CLONE_NAME)|g' $(CLONE_DIR)/Makefile
 
+
+# Clean individual directories and the main one.
+clean_everything: clean clean_individuals
+
+# Run make clean on all of the individual directories.
+clean_individuals:
+        for dir in $(NOTE_DIRECTORIES); do \
+                make clean -C $$dir; \
+        done
+
 # Run latexmk's clean.
 clean:
 	cd $(MAIN_DIR); \
 	latexmk -c
 
-.PHONY: clean today view individuals update clone distribution
+.PHONY: clean today view individuals update clone distribution clean_individuals clean_everything everything
