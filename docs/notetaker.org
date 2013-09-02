@@ -100,7 +100,7 @@
    to be provided, in which case the name of the directory will be
    used.
 
-** TODO Distributions
+** DONE Distributions
    The main Makefile provides the ability to generate 'distributions'
    as well. These are just compressed archives of all of the
    individual .pdf files, as well as the main .pdf file. The main
