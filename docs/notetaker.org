@@ -100,6 +100,20 @@
    to be provided, in which case the name of the directory will be
    used.
 
+** DONE Push
+   If the notes are under git version control we can use the command
+
+   #+BEGIN_EXAMPLE
+     $ make push COMMIT_MESSAGE="desired commit message"
+   #+END_EXAMPLE
+
+   To commit all of the .tex note files, and the PDFs. This includes
+   the main ones. This also includes the Makefiles, templates, and
+   preambles. After these have been added they are pushed.
+
+   If desired a commit message my also be provided instead of the
+   default "Updated the notes..." message.
+
 ** DONE Distributions
    The main Makefile provides the ability to generate 'distributions'
    as well. These are just compressed archives of all of the
