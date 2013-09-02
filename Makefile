@@ -40,7 +40,7 @@ LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmod
 # Find all of the subdirectories which should contain notes.  These
 # need to be sorted by day.  We ignore the template directory. Also
 # find all of the LaTeX files.
-NOTE_DIRECTORIES=$(shell find ./*/ -type d | grep -v 'template/' | tr '\n' ' ')
+NOTE_DIRECTORIES=$(shell find ./*/ -type d | grep -v 'template/' | grep -v 'docs/' | grep -v $(MAIN_DIR) | tr '\n' ' ')
 TEX_FILES=$(shell find ./*/ -name "*tex" -type f | grep -v 'template.tex' | grep -v $(MAIN_DIR) | tr '\n' ' ')
 
 # Get the name of the class.
@@ -63,6 +63,12 @@ TODAY_NAME=$(CLASS_NAME)-$(shell date "+%Y-%m-%d")
 
 
 all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
+
+# Rule to generate all of the individual note PDFs.
+individuals:
+	for dir in $(NOTE_DIRECTORIES); do \
+		make -C $$dir; \
+	done
 
 # Rule for generating the main .tex file.
 $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
@@ -110,4 +116,4 @@ clean:
 	cd $(MAIN_DIR); \
 	latexmk -c
 
-.PHONY: clean today
+.PHONY: clean today view individuals
