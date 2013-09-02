@@ -62,7 +62,7 @@ PREAMBLES=preamble.sty
 TODAY_NAME=$(CLASS_NAME)-$(shell date "+%Y-%m-%d")
 
 
-all: $(MAIN_PDF_FILE)
+all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
 # Rule for generating the main .tex file.
 $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
@@ -84,9 +84,12 @@ $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 
 	printf "\n\\\end{document}\n" >> $@
 
-$(MAIN_PDF_FILE): $(MAIN_DIR)/$(MAIN_TEX_FILE)
+$(MAIN_DIR)/$(MAIN_PDF_FILE): $(MAIN_DIR)/$(MAIN_TEX_FILE)
 	cd $(MAIN_DIR); \
 	$(LATEX) $(LATEX_FLAGS) $(shell basename $<)
+
+view: $(MAIN_DIR)/$(MAIN_PDF_FILE)
+	$(VIEWER) $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
 # Generate the directory for the current day.
 today: $(TODAY_NAME)
