@@ -70,6 +70,12 @@ individuals:
 		make -C $$dir; \
 	done
 
+# Update the makefiles in all of the sub-directories.
+update:
+	for dir in $(NOTE_DIRECTORIES); do \
+		cp template/Makefile $$dir; \
+	done
+
 # Rule for generating the main .tex file.
 $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 	mkdir -p $(MAIN_DIR)
@@ -118,4 +124,4 @@ clean:
 	cd $(MAIN_DIR); \
 	latexmk -c
 
-.PHONY: clean today view individuals
+.PHONY: clean today view individuals update
