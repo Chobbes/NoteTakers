@@ -61,6 +61,8 @@ PREAMBLES=preamble.sty
 # Name for todays notes.
 TODAY_NAME=$(CLASS_NAME)-$(shell date "+%Y-%m-%d")
 
+CLONE_DIR=/dev/null
+CLONE_NAME=$$(shell basename $$(PWD))
 
 all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
@@ -119,9 +121,18 @@ $(TODAY_NAME):
 %.pdf: %.tex $(PREAMBLES)
 	$(LATEX) $(LATEX_FLAGS) $<
 
+# Rule for cloning.
+clone:
+	mkdir -p $(CLONE_DIR)
+	cp -R docs $(CLONE_DIR)
+	cp -R template $(CLONE_DIR)
+	cp preamble.sty $(CLONE_DIR)
+	cp Makefile $(CLONE_DIR)
+	sed -i '' 's|CLASS_NAME=$$(shell basename $$(PWD))|CLASS_NAME=$(CLONE_NAME)|g' $(CLONE_DIR)/Makefile
+
 # Run latexmk's clean.
 clean:
 	cd $(MAIN_DIR); \
 	latexmk -c
 
-.PHONY: clean today view individuals update
+.PHONY: clean today view individuals update clone
