@@ -90,10 +90,12 @@ $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 
 	printf "\n\\\end{document}\n" >> $@
 
+# Rule to build the main PDF.
 $(MAIN_DIR)/$(MAIN_PDF_FILE): $(MAIN_DIR)/$(MAIN_TEX_FILE)
 	cd $(MAIN_DIR); \
 	$(LATEX) $(LATEX_FLAGS) $(shell basename $<)
 
+# Open the main PDF.
 view: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 	$(VIEWER) $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
