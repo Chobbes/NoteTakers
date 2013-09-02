@@ -24,10 +24,11 @@
 # Need to attempt to figure out which PDF viewer to use.
 UNAME=$(shell uname)
 
-ifeq ($(VIEWER), "")
+ifndef VIEWER
 	ifeq ($(UNAME), Linux)
 		VIEWER="evince"
-	ifeq($(UNAME), Darwin)
+	endif
+	ifeq ($(UNAME), Darwin)
 		VIEWER="open"
 	endif
 endif
