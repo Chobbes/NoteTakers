@@ -67,11 +67,31 @@ CLONE_NAME=$$(shell basename $$(PWD))
 # Name for the distribution archives.
 DIST_NAME=distribution
 
+# Default commit message
+COMMIT_MESSAGE="Updated the notes..."
+
 
 all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
 # Build main PDF and all of the individual ones.
 everything: all individuals
+
+
+# Rule to commit and push everything - assuming this is under version
+# control with git.
+push: everything Makefile template/Makefile template/template.tex
+	git add Makefile
+	git add template/Makefile
+	git add template/template.tex
+	git add $(PREAMBLES)
+	for dir in $(NOTE_DIRECTORIES); do \
+		git add *tex; \
+		git add *pdf; \
+	done
+	git add $(MAIN_DIR)/$(MAIN_PDF_FILE)
+	git add $(MAIN_DIR)/$(MAIN_TEX_FILE)
+	git commit -am $(COMMIT_MESSAGE)
+	git push
 
 # Rule to generate all of the individual note PDFs.
 individuals:
