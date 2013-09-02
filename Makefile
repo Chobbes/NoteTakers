@@ -64,6 +64,10 @@ TODAY_NAME=$(CLASS_NAME)-$(shell date "+%Y-%m-%d")
 CLONE_DIR=/dev/null
 CLONE_NAME=$$(shell basename $$(PWD))
 
+# Name for the distribution archives.
+DIST_NAME=distribution
+
+
 all: $(MAIN_DIR)/$(MAIN_PDF_FILE)
 
 # Rule to generate all of the individual note PDFs.
@@ -77,6 +81,18 @@ update:
 	for dir in $(NOTE_DIRECTORIES); do \
 		cp template/Makefile $$dir; \
 	done
+
+# Generate compressed archives for the notes.
+distribution:
+	mkdir $(DIST_NAME)/
+	cp $(MAIN_DIR)/$(MAIN_PDF_FILE) $(DIST_NAME)/$(MAIN_PDF_FILE)
+	for dir in $(NOTE_DIRECTORIES); do \
+		mkdir $(DIST_NAME)/$$dir; \
+		cp $$dir/*pdf $(DIST_NAME)/$$dir; \
+	done
+	tar -cvjf $(DIST_NAME).tar.bz2 $(DIST_NAME)/
+	zip -r $(DIST_NAME).zip $(DIST_NAME)/
+	rm -rf $(DIST_NAME)/
 
 # Rule for generating the main .tex file.
 $(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
@@ -135,4 +151,4 @@ clean:
 	cd $(MAIN_DIR); \
 	latexmk -c
 
-.PHONY: clean today view individuals update clone
+.PHONY: clean today view individuals update clone distribution
