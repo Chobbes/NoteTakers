@@ -91,13 +91,14 @@
    command in the main directory.
 
    #+BEGIN_EXAMPLE
-     $ make clone CLONE_DIR=path/to/new/note/directory CLASSNAME=name
+     $ make clone CLONE_DIR=path/to/new/note/directory CLONE_NAME=name
    #+END_EXAMPLE
 
    Obviously replacing the path to whatever you want it to be. If you
    do not provide the directory to clone into this should provide a
-   helpful error message. The class name does not need to be provided,
-   in which case the name of the directory will be used.
+   helpful error message. The class name for the clone does not need
+   to be provided, in which case the name of the directory will be
+   used.
 
 ** TODO Distributions
    The main Makefile provides the ability to generate 'distributions'
