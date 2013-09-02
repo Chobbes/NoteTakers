@@ -85,7 +85,7 @@
      $ make update
    #+END_EXAMPLE
 
-** TODO Cloning
+** DONE Cloning
    This directory serves as a template for starting a new set of
    notes. You may create a new directory by issuing the following
    command in the main directory.
