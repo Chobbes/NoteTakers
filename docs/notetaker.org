@@ -43,7 +43,7 @@
     $ make individuals
   #+END_EXAMPLE
 
-** TODO Viewing
+** DONE Viewing
    Sometimes it is useful to be able to launch a .pdf reader with the
    main .pdf file easily. You can do this with
 
