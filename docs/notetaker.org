@@ -59,7 +59,7 @@
     $ make view VIEWER=evince
   #+END_EXAMPLE
 
-** TODO Building Sub-directories
+** DONE Building Sub-directories
    In order to start writing notes for the day we need to be able to
    create a sub-directory for the current day based off of the
    template. To do this we simply do the following:
