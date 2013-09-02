@@ -86,7 +86,7 @@ update:
 	done
 
 # Generate compressed archives for the notes.
-distribution:
+distribution: everything
 	mkdir $(DIST_NAME)/
 	cp $(MAIN_DIR)/$(MAIN_PDF_FILE) $(DIST_NAME)/$(MAIN_PDF_FILE)
 	for dir in $(NOTE_DIRECTORIES); do \
@@ -155,9 +155,9 @@ clean_everything: clean clean_individuals
 
 # Run make clean on all of the individual directories.
 clean_individuals:
-        for dir in $(NOTE_DIRECTORIES); do \
-                make clean -C $$dir; \
-        done
+	for dir in $(NOTE_DIRECTORIES); do \
+		make clean -C $$dir; \
+	done
 
 # Run latexmk's clean.
 clean:
