@@ -110,17 +110,10 @@
      $ make distribution DIST_NAME=<name of archive file>
    #+END_EXAMPLE
 
-   This will generate a file named 'distribution.tar.bz2' containing
-   everything for just reading the notes by default, if no name was
-   provided. None of the LaTeX is included.
-
-   Some people are unable to deal with a '.tar.bz2' for whatever
-   reason. Thus you may use the following target to generate a '.zip'
-   archive instead.
-
-   #+BEGIN_EXAMPLE
-     $ make distribution-zip DIST_NAME=<name of archive file>
-   #+END_EXAMPLE
+   This will generate a file named 'distribution.tar.bz2', and
+   'distribution.zip' both containing everything for just reading the
+   notes by default, if no name was provided. None of the LaTeX is
+   included.
 
 ** DONE Individual Makefiles
    The individual Makefile for each sub-directory of notes is used to
