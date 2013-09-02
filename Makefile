@@ -40,14 +40,16 @@ LATEX_FLAGS=-g -pdf -pdflatex='pdflatex -halt-on-error -interaction errorstopmod
 # need to be sorted by day.  We ignore the template directory. Also
 # find all of the LaTeX files.
 NOTE_DIRECTORIES=$(shell find ./*/ -type d | grep -v 'template/' | tr '\n' ' ')
-TEX_FILES=$(shell find ./*/ -name "*tex" -type f | grep -v 'template.tex' | tr '\n' ' ')
+TEX_FILES=$(shell find ./*/ -name "*tex" -type f | grep -v 'template.tex' | grep -v $(MAIN_DIR) | tr '\n' ' ')
 
 # Get the name of the class.
 CLASS_NAME=$(shell basename $(PWD))
 
 # Name of the main .tex file. This is the file which includes all of
 # the individual days.
+MAIN_DIR=main
 MAIN_TEX_FILE=$(CLASS_NAME).tex
+MAIN_PDF_FILE=$(MAIN_TEX_FILE:.tex=.pdf)
 
 # Class for the main .tex file.
 DOCUMENT_CLASS=article
@@ -59,13 +61,16 @@ PREAMBLES=preamble.sty
 TODAY_NAME=$(CLASS_NAME)-$(shell date "+%Y-%m-%d")
 
 
+all: $(MAIN_PDF_FILE)
+
 # Rule for generating the main .tex file.
-$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
+$(MAIN_DIR)/$(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
+	mkdir -p $(MAIN_DIR)
 	printf "\\\documentclass{$(DOCUMENT_CLASS)}\n" > $@
 	printf "\\\usepackage{subfiles}\n" >> $@
 
 	for file in $(PREAMBLES); do \
-		printf "\\\usepackage{$$file}\n" | sed s/.sty// >> $@; \
+		printf "\\\usepackage{../$$file}\n" | sed s/.sty// >> $@; \
 	done
 
 	printf "\n" >> $@
@@ -73,10 +78,14 @@ $(MAIN_TEX_FILE): $(TEX_FILES) $(PREAMBLES)
 	printf "\\\tableofcontents\n\n" >> $@
 
 	for file in $(TEX_FILES); do \
-		printf "\\\subfile{$$file}\n" | sed s/.tex// >> $@; \
+		printf "\\\subfile{../$$file}\n" | sed s/.tex// >> $@; \
 	done
 
 	printf "\n\\\end{document}\n" >> $@
+
+$(MAIN_PDF_FILE): $(MAIN_DIR)/$(MAIN_TEX_FILE)
+	cd $(MAIN_DIR); \
+	$(LATEX) $(LATEX_FLAGS) $(shell basename $<)
 
 # Generate the directory for the current day.
 today: $(TODAY_NAME)
@@ -85,6 +94,16 @@ $(TODAY_NAME):
 	mkdir $(TODAY_NAME)
 	cp template/Makefile $(TODAY_NAME)/Makefile
 	cp template/template.tex $(TODAY_NAME)/$(TODAY_NAME).tex
-	sed -i '' 's/MAIN_TEX_FILE/$(MAIN_TEX_FILE)/g' $(TODAY_NAME)/$(TODAY_NAME).tex
+	sed -i '' 's|MAIN_TEX_FILE|$(MAIN_TEX_FILE)|g' $(TODAY_NAME)/$(TODAY_NAME).tex
+	sed -i '' 's|MAIN_DIR|$(MAIN_DIR)|g' $(TODAY_NAME)/$(TODAY_NAME).tex
+
+# Rule for PDF file generation.
+%.pdf: %.tex $(PREAMBLES)
+	$(LATEX) $(LATEX_FLAGS) $<
+
+# Run latexmk's clean.
+clean:
+	cd $(MAIN_DIR); \
+	latexmk -c
 
 .PHONY: clean today
