@@ -74,7 +74,7 @@
    the name of the main directory, however the variable *CLASS_NAME*
    may also be modified in the Makefile.
 
-** TODO Updating Sub-Makefiles
+** DONE Updating Sub-Makefiles
    Sometimes the Makefiles that we have for the sub-directories in the
    template needs to be updated, because we need to add some features,
    change some includes, or add some flags to commands. This will
