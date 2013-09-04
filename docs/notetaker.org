@@ -148,3 +148,10 @@
    Makefile in the parent directory. If this is not there you will not
    be able to generate the individual PDF files because of how the
    subfiles LaTeX package works.
+* Command Examples
+  Short list of example commands that you can execute within org-mode.
+
+  [[shell:cd .. ; make][Build the main file]]
+  [[shell:cd .. ; make individuals][Build individuals]]
+  [[shell:cd .. ; make distribution][Build distribution]]
+  [[shell:cd .. ; make push][Push changes]]
