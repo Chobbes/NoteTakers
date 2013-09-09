@@ -90,7 +90,7 @@ push: everything Makefile template/Makefile template/template.tex
 	done
 	git add $(MAIN_DIR)/$(MAIN_PDF_FILE)
 	git add $(MAIN_DIR)/$(MAIN_TEX_FILE)
-	git commit -am "$(COMMIT_MESSAGE)"
+	git commit -m "$(COMMIT_MESSAGE)"
 	git push
 
 # Rule to generate all of the individual note PDFs.
