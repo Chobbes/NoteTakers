@@ -1,4 +1,4 @@
-#+TITLE: Lued Notes
+#+TITLE: NoteTakers Usage
 #+AUTHOR: Calvin Beck
 #+OPTIONS: ^:{}
 
